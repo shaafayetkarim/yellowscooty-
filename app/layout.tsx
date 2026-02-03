@@ -8,11 +8,11 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: 'Yellow Scooter Production',
+  description: 'A premium production house capturing the essence of movement and storytelling.',
+  generator: 'Next.js',
   icons: {
-    icon: '/icon.svg',
+    icon: '/images/logo.png',
   },
 }
 
