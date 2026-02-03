@@ -10,19 +10,19 @@ const founders = [
         name: "Simon",
         designations: ["Photographer", "Cinematographer", "Drone Operator"],
         instagram: "https://www.instagram.com/simonreza_/",
-        src: "/hands/Simon Reza.jpg",
+        src: "https://i.ibb.co.com/PvrwFvBf/Simon-Reza.jpg",
     },
     {
         name: "Samir",
         designations: ["Editor", "Photographer", "Cinematographer"],
         instagram: "https://www.instagram.com/mohammad.samirr/",
-        src: "/hands/Mohammad Samir.jpg",
+        src: "https://i.ibb.co.com/kjfXyZT/Mohammad-Samir.jpg",
     },
     {
         name: "Ishan",
         designations: ["Cinematographer", "Editor"],
         instagram: "https://www.instagram.com/__._ishan_.__/",
-        src: "/hands/Eshan Khondokar.jpg",
+        src: "https://i.ibb.co.com/NQRC4LX/Eshan-Khondokar.jpg",
     },
 ]
 

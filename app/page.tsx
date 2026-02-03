@@ -30,9 +30,9 @@ export default function Page() {
         "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExemJ0aThzZ2Z5NW42N2E3eGtyejFkMDZmZWF3eTNwdTd2NDZvcGw3ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LcyLy7Puzkdrp1Fqml/giphy.gif",
         "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExanpsYWxpMGl6ajU1NXBhZ3cyYzgwZGsxaTNtN3BjODZnejBqd2lqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ELDyeRPpU2XcviNIno/giphy.gif",
         // Founders (lowercase .jpg on disk)
-        "/hands/Simon Reza.jpg",
-        "/hands/Mohammad Samir.jpg",
-        "/hands/Eshan Khondokar.jpg",
+        "https://i.ibb.co.com/PvrwFvBf/Simon-Reza.jpg",
+        "https://i.ibb.co.com/kjfXyZT/Mohammad-Samir.jpg",
+        "https://i.ibb.co.com/NQRC4LX/Eshan-Khondokar.jpg",
         // Gallery - Picu (standardizing with disk state)
         "/picu/DSC02042.jpg",
         "/picu/MUG09771.jpg",
