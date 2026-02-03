@@ -44,19 +44,11 @@ export default function Page() {
         "/picu/UMY01810.jpg",
         "/picu/DSC00854.jpg",
         "/picu/DSC04377.jpg",
-        "/picu/MUG05283.jpg",
-        "/picu/Screenshot 2026-01-03 021105.png",
-        "/picu/Screenshot 2026-01-03 021202.png",
-        "/picu/Screenshot 2026-01-03 021230.png",
-        "/picu/Screenshot 2026-01-03 021432.png",
-        "/picu/Screenshot 2026-01-03 021537.png",
-        "/picu/Screenshot 2026-01-03 021610.png",
-        "/picu/beef chili lime.jpg",
-        "/picu/frenchfry.jpg"
+        "/picu/MUG05283.jpg"
       ]
 
       const loadImage = (url: string) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const img = new window.Image()
           img.src = url
           img.onload = resolve
@@ -72,9 +64,9 @@ export default function Page() {
     }
 
     const init = async () => {
-      // Wait for both minimum time AND image loading
+      // Wait for both minimum time AND critical image loading
       await Promise.all([
-        new Promise(resolve => setTimeout(resolve, 2500)), // Minimum load time
+        new Promise(resolve => setTimeout(resolve, 1250)), // Reduced from 2500ms
         preloadImages()
       ])
       setIsLoading(false)
