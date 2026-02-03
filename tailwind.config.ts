@@ -14,6 +14,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         serif: ["var(--font-serif)"],
+        signature: ["var(--font-signature)"],
       },
       colors: {
         background: 'hsl(var(--background))',

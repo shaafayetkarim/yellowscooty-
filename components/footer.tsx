@@ -81,7 +81,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
           <p className="text-[10px] font-black tracking-[0.3em] uppercase text-white/20">
             © 2024 YELLOW SCOOTER PRODUCTION. ALL RIGHTS RESERVED.
           </p>
@@ -93,6 +93,44 @@ export default function Footer() {
             ))}
           </div>
         </div>
+
+        {/* Developer Signature */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="flex flex-col items-center gap-2 pb-8"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-2xl font-bold text-white font-signature tracking-normal">
+              By
+            </span>
+            <motion.a
+              href="https://github.com/shaafayetkarim"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative"
+            >
+              <span className="text-2xl font-bold text-white transition-all duration-500 group-hover:text-yellow-500 font-signature tracking-normal">
+                Shafayet Karim
+              </span>
+              <motion.div
+                className="absolute -inset-x-4 -inset-y-2 bg-yellow-500/5 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0, 0.5, 0]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              {/* Subtle underline animation */}
+              <div className="absolute -bottom-1 left-0 w-0 h-px bg-yellow-500 transition-all duration-500 group-hover:w-full" />
+            </motion.a>
+          </div>
+        </motion.div>
       </div>
     </footer>
   )
