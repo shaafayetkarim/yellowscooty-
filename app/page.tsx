@@ -24,11 +24,50 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate initial load
-    const timer = setTimeout(() => {
+    const preloadImages = async () => {
+      const imageUrls = [
+        // Hero Gifs
+        "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExemJ0aThzZ2Z5NW42N2E3eGtyejFkMDZmZWF3eTNwdTd2NDZvcGw3ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LcyLy7Puzkdrp1Fqml/giphy.gif",
+        "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExanpsYWxpMGl6ajU1NXBhZ3cyYzgwZGsxaTNtN3BjODZnejBqd2lqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ELDyeRPpU2XcviNIno/giphy.gif",
+        // Founders
+        "/hands/Simon Reza.JPG",
+        "/hands/Mohammad Samir.JPG",
+        "/hands/Eshan Khondokar.JPG",
+        // Gallery (First Batch)
+        "/picu/DSC02042.jpg",
+        "/picu/MUG09771.jpg",
+        "/picu/UMY02097.JPG",
+        "/picu/DSC00237.jpg",
+        "/picu/UMY01999.JPG",
+        "/picu/DSC04324.jpg"
+      ]
+
+      const loadImage = (url: string) => {
+        return new Promise((resolve, reject) => {
+          const img = new window.Image()
+          img.src = url
+          img.onload = resolve
+          img.onerror = resolve // Resolve even on error to prevent hanging
+        })
+      }
+
+      try {
+        await Promise.all(imageUrls.map(loadImage))
+      } catch (err) {
+        console.error("Failed to preload images", err)
+      }
+    }
+
+    const init = async () => {
+      // Wait for both minimum time AND image loading
+      await Promise.all([
+        new Promise(resolve => setTimeout(resolve, 2500)), // Minimum load time
+        preloadImages()
+      ])
       setIsLoading(false)
-    }, 2500)
-    return () => clearTimeout(timer)
+    }
+
+    init()
   }, [])
 
   const missionStatement =
