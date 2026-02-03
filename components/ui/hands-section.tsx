@@ -20,7 +20,7 @@ const founders = [
     },
     {
         name: "Ishan",
-        designations: ["Cinematographer", "Editor"],
+        designations: ["Cinematographer", "Photographer", "Editor"],
         instagram: "https://www.instagram.com/__._ishan_.__/",
         src: "https://i.ibb.co.com/NQRC4LX/Eshan-Khondokar.jpg",
     },
