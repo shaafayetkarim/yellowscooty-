@@ -10,19 +10,19 @@ const founders = [
         name: "Simon",
         designations: ["Photographer", "Cinematographer", "Drone Operator"],
         instagram: "https://www.instagram.com/simonreza_/",
-        image: "/hands/Simon Reza.jpg",
+        src: "/hands/Simon Reza.jpg",
     },
     {
         name: "Samir",
         designations: ["Editor", "Photographer", "Cinematographer"],
         instagram: "https://www.instagram.com/mohammad.samirr/",
-        image: "/hands/Mohammad Samir.jpg",
+        src: "/hands/Mohammad Samir.jpg",
     },
     {
         name: "Ishan",
         designations: ["Cinematographer", "Editor"],
         instagram: "https://www.instagram.com/__._ishan_.__/",
-        image: "/hands/Eshan Khondokar.jpg",
+        src: "/hands/Eshan Khondokar.jpg",
     },
 ]
 
@@ -62,7 +62,7 @@ export const HandsSection = () => {
                             {/* Image Container */}
                             <div className="relative aspect-[3/4] overflow-hidden rounded-[2.5rem] glass border border-white/10 mb-8">
                                 <Image
-                                    src={founder.image}
+                                    src={founder.src}
                                     alt={founder.name}
                                     fill
                                     className="object-cover transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"

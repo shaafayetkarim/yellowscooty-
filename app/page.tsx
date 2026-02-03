@@ -29,17 +29,31 @@ export default function Page() {
         // Hero Gifs
         "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExemJ0aThzZ2Z5NW42N2E3eGtyejFkMDZmZWF3eTNwdTd2NDZvcGw3ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LcyLy7Puzkdrp1Fqml/giphy.gif",
         "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExanpsYWxpMGl6ajU1NXBhZ3cyYzgwZGsxaTNtN3BjODZnejBqd2lqdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ELDyeRPpU2XcviNIno/giphy.gif",
-        // Founders
-        "/hands/Simon Reza.JPG",
-        "/hands/Mohammad Samir.JPG",
-        "/hands/Eshan Khondokar.JPG",
-        // Gallery (First Batch)
+        // Founders (lowercase .jpg on disk)
+        "/hands/Simon Reza.jpg",
+        "/hands/Mohammad Samir.jpg",
+        "/hands/Eshan Khondokar.jpg",
+        // Gallery - Picu (standardizing with disk state)
         "/picu/DSC02042.jpg",
         "/picu/MUG09771.jpg",
         "/picu/UMY02097.JPG",
         "/picu/DSC00237.jpg",
         "/picu/UMY01999.JPG",
-        "/picu/DSC04324.jpg"
+        "/picu/DSC04324.jpg",
+        "/picu/MUG04939.jpg",
+        "/picu/DSC06530.jpg",
+        "/picu/UMY01810.jpg",
+        "/picu/DSC00854.jpg",
+        "/picu/DSC04377.jpg",
+        "/picu/MUG05283.jpg",
+        "/picu/Screenshot 2026-01-03 021105.png",
+        "/picu/Screenshot 2026-01-03 021202.png",
+        "/picu/Screenshot 2026-01-03 021230.png",
+        "/picu/Screenshot 2026-01-03 021432.png",
+        "/picu/Screenshot 2026-01-03 021537.png",
+        "/picu/Screenshot 2026-01-03 021610.png",
+        "/picu/beef chili lime.jpg",
+        "/picu/frenchfry.jpg"
       ]
 
       const loadImage = (url: string) => {
