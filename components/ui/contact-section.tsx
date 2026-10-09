@@ -194,14 +194,14 @@ export const ContactSection = () => {
                 {status === "success" && (
                   <div className="flex items-center gap-3 p-4 bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 text-sm font-medium">
                     <CheckCircle2 size={18} />
-                    <span>Inquiry transmitted successfully. Our team will connect with you shortly.</span>
+                    <span>Inquiry sent successfully. Our team will connect with you shortly.</span>
                   </div>
                 )}
 
                 {status === "error" && (
                   <div className="flex items-center gap-3 p-4 bg-rose-950/40 border border-rose-500/40 text-rose-300 text-sm font-medium">
                     <AlertCircle size={18} />
-                    <span>Failed to transmit inquiry. Please email us directly at aresproduction@gmail.com</span>
+                    <span>Failed to send inquiry. Please email us directly at aresproduction@gmail.com</span>
                   </div>
                 )}
 
@@ -212,10 +212,10 @@ export const ContactSection = () => {
                   className="w-full sm:w-auto px-10 py-4 bg-white text-black hover:bg-[#8b0100] hover:text-white font-bold text-xs uppercase tracking-[0.3em] transition-all duration-300 rounded-none cursor-pointer flex items-center justify-center gap-3 disabled:opacity-50"
                 >
                   {status === "loading" ? (
-                    <span>TRANSMITTING...</span>
+                    <span>SENDING...</span>
                   ) : (
                     <>
-                      <span>TRANSMIT INQUIRY</span>
+                      <span>SEND INQUIRY</span>
                       <Send size={14} />
                     </>
                   )}

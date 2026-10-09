@@ -243,10 +243,10 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
                   <div className="flex flex-col md:flex-row items-center justify-between gap-8 pt-4">
                     <div className="flex items-center gap-2">
                       {status === "success" && (
-                        <p className="text-[10px] font-black tracking-[0.3em] uppercase animate-pulse" style={{ color: "#8b0100" }}>Inquiry Transmitted</p>
+                        <p className="text-[10px] font-black tracking-[0.3em] uppercase animate-pulse" style={{ color: "#8b0100" }}>Inquiry Sent</p>
                       )}
                       {status === "error" && (
-                        <p className="text-red-500 text-[10px] font-black tracking-[0.3em] uppercase">Transmission Failed</p>
+                        <p className="text-red-500 text-[10px] font-black tracking-[0.3em] uppercase">Send Failed</p>
                       )}
                     </div>
                     <button
@@ -262,7 +262,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
                         ) : (
                           <Send className="w-3 h-3" />
                         )}
-                        {status === "success" ? "TRANSMITTED" : "INITIATE PROJECT"}
+                        {status === "success" ? "SENT" : "INITIATE PROJECT"}
                       </span>
                     </button>
                   </div>

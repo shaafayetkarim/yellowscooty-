@@ -20,7 +20,7 @@ export default function Footer() {
 
   const socialLinks = [
     { name: "Facebook", href: "https://facebook.com" },
-    { name: "Instagram", href: "https://instagram.com" },
+    { name: "Instagram", href: "https://instagram.com/_ares.prod" },
   ]
 
   return (
@@ -109,13 +109,30 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Back to Top */}
-        <div className="mt-16 pt-8 border-t border-zinc-200/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold text-zinc-500">
-          <p>© {new Date().getFullYear()} ARES PRODUCTION. ALL RIGHTS RESERVED.</p>
+        {/* Bottom Bar: Copyright | Crafted By (Middle, Larger) | Back to Top */}
+        <div className="mt-16 pt-8 border-t border-zinc-200/60 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-semibold text-zinc-500 text-center md:text-left">
+          {/* Left: Copyright */}
+          <p className="order-1 md:order-1">
+            © {new Date().getFullYear()} ARES PRODUCTION. ALL RIGHTS RESERVED.
+          </p>
 
+          {/* Middle: Crafted By Shafayet Karim (Larger & Centered) */}
+          <div className="order-2 md:order-2 flex items-center justify-center gap-1.5 text-sm sm:text-base font-medium text-zinc-600">
+            <span>Crafted by</span>
+            <a
+              href="https://github.com/shaafayetkarim"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base sm:text-lg md:text-xl font-black text-zinc-900 hover:text-[#8b0100] underline underline-offset-4 decoration-zinc-300 hover:decoration-[#8b0100] transition-all duration-300 tracking-tight"
+            >
+              Shafayet Karim
+            </a>
+          </div>
+
+          {/* Right: Back to Top */}
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-zinc-700 hover:text-[#8b0100] transition-colors uppercase font-bold tracking-wider cursor-pointer"
+            className="order-3 md:order-3 flex items-center gap-2 text-zinc-700 hover:text-[#8b0100] transition-colors uppercase font-bold tracking-wider cursor-pointer"
           >
             <span>Back To Top</span>
             <ArrowUp size={14} />
