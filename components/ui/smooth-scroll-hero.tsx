@@ -121,7 +121,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
           <div className="text-center max-w-2xl flex flex-col items-center">
             <p className="text-white text-lg md:text-2xl font-black tracking-[0.4em] uppercase leading-tight md:leading-relaxed flex flex-col md:block">
               <span className="mb-2 md:mb-0">Give a little <span className="text-white">effort</span> by</span>
-              <span className="text-6xl md:text-8xl lg:text-9xl text-yellow-500 block my-6 tracking-tighter italic font-serif leading-none">SCROLLING</span>
+              <span className="text-6xl md:text-8xl lg:text-9xl block my-6 tracking-tighter italic font-sans font-black leading-none" style={{ color: "#8b0100" }}>SCROLLING</span>
               <span className="mb-2 md:mb-0">to reach us because</span>
               <span className="text-white/60 italic tracking-[0.2em] md:tracking-widest mt-4 block text-sm md:text-lg">we will be giving too..</span>
             </p>
@@ -133,7 +133,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
               transition={{ delay: 1 }}
               className="mt-12 flex flex-col items-center gap-3"
             >
-              <div className="w-[30px] h-[50px] rounded-full border-2 border-yellow-500 flex justify-center p-2 shadow-[0_0_20px_rgba(234,179,8,0.3)]">
+              <div className="w-[30px] h-[50px] rounded-full border-2 flex justify-center p-2" style={{ borderColor: "#8b0100", boxShadow: "0 0 20px rgba(139,1,0,0.3)" }}>
                 <motion.div
                   animate={{
                     y: [0, 15, 0]
@@ -143,7 +143,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                  className="w-1 h-2 bg-yellow-500 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.8)]"
+                  className="w-1 h-2 rounded-full" style={{ background: "#8b0100", boxShadow: "0 0 10px rgba(139,1,0,0.8)" }}
                 />
               </div>
               <span className="text-[10px] font-black tracking-[0.3em] uppercase text-white">Scroll Down</span>
@@ -164,7 +164,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
             <h2 className="text-4xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-8 leading-none">
               READY FOR
               <br />
-              <span className="text-yellow-500 italic drop-shadow-[0_5px_15px_rgba(234,179,8,0.2)]">
+              <span className="italic" style={{ color: "#8b0100", filter: "drop-shadow(0 5px 15px rgba(139,1,0,0.25))" }}>
                 PRODUCTION?
               </span>
             </h2>
@@ -184,8 +184,8 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
               ].map((stat, i) => (
                 <div key={i} className="text-center group">
                   <div className="flex justify-center mb-4 transition-transform duration-500 group-hover:scale-110">
-                    <div className="w-14 h-14 glass-yellow rounded-2xl flex items-center justify-center border border-yellow-500/20">
-                      {React.isValidElement(stat.icon) && React.cloneElement(stat.icon as React.ReactElement<any>, { className: "w-6 h-6 text-yellow-500" })}
+                    <div className="w-14 h-14 glass-red rounded-2xl flex items-center justify-center" style={{ borderColor: "rgba(139,1,0,0.2)" }}>
+                      {React.isValidElement(stat.icon) && React.cloneElement(stat.icon as React.ReactElement<any>, { className: "w-6 h-6", style: { color: "#8b0100" } })}
                     </div>
                   </div>
                   <div className="text-3xl md:text-4xl font-black text-white mb-2">{stat.value}</div>
@@ -203,7 +203,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
             >
               <div className="glass-dark border border-white/10 rounded-[2rem] p-10 md:p-14 shadow-2xl overflow-hidden relative">
                 {/* Subtle accent line */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500/30 to-transparent" />
+                <div className="absolute top-0 left-0 w-full h-1" style={{ background: "linear-gradient(to right, transparent, rgba(139,1,0,0.3), transparent)" }} />
 
                 <form onSubmit={handleSubmit} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -213,7 +213,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/30 focus:border-yellow-500 py-3 text-white transition-all outline-none text-sm font-medium placeholder:text-white/30"
+                        className="w-full bg-transparent border-b border-white/30 focus:border-ares py-3 text-white transition-all outline-none text-sm font-medium placeholder:text-white/30"
                         placeholder="ALEX TURNER"
                       />
                     </div>
@@ -224,7 +224,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/30 focus:border-yellow-500 py-3 text-white transition-all outline-none text-sm font-medium placeholder:text-white/30"
+                        className="w-full bg-transparent border-b border-white/30 focus:border-ares py-3 text-white transition-all outline-none text-sm font-medium placeholder:text-white/30"
                         placeholder="ALEX@VISION.COM"
                       />
                     </div>
@@ -235,7 +235,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-transparent border-b border-white/30 focus:border-yellow-500 py-3 text-white transition-all outline-none text-sm font-medium min-h-[100px] resize-none placeholder:text-white/30"
+                      className="w-full bg-transparent border-b border-white/30 focus:border-ares py-3 text-white transition-all outline-none text-sm font-medium min-h-[100px] resize-none placeholder:text-white/30"
                       placeholder="TELL US ABOUT YOUR PROJECT..."
                     />
                   </div>
@@ -243,7 +243,7 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
                   <div className="flex flex-col md:flex-row items-center justify-between gap-8 pt-4">
                     <div className="flex items-center gap-2">
                       {status === "success" && (
-                        <p className="text-yellow-500 text-[10px] font-black tracking-[0.3em] uppercase animate-pulse">Inquiry Transmitted</p>
+                        <p className="text-[10px] font-black tracking-[0.3em] uppercase animate-pulse" style={{ color: "#8b0100" }}>Inquiry Transmitted</p>
                       )}
                       {status === "error" && (
                         <p className="text-red-500 text-[10px] font-black tracking-[0.3em] uppercase">Transmission Failed</p>
@@ -252,7 +252,9 @@ const SmoothScrollHero: React.FC<SmoothScrollHeroProps> = ({
                     <button
                       type="submit"
                       disabled={status === "loading"}
-                      className="group relative px-12 py-5 bg-white text-black font-black text-[10px] tracking-[0.4em] uppercase rounded-full hover:bg-yellow-500 transition-all duration-500 disabled:opacity-50"
+                      className="group relative px-12 py-5 bg-white text-black font-black text-[10px] tracking-[0.4em] uppercase rounded-full transition-all duration-500 disabled:opacity-50"
+                      onMouseEnter={(e) => (e.currentTarget.style.background = "#8b0100", e.currentTarget.style.color = "white")}
+                      onMouseLeave={(e) => (e.currentTarget.style.background = "white", e.currentTarget.style.color = "black")}
                     >
                       <span className="flex items-center gap-3">
                         {status === "loading" ? (

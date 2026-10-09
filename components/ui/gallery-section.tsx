@@ -1,7 +1,7 @@
 "use client"
 
-import React from "react"
-import { motion } from "framer-motion"
+import React, { useRef } from "react"
+import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
@@ -29,69 +29,115 @@ const galleryImages = [
 ]
 
 export const GallerySection = () => {
-    return (
-        <section id="gallery" className="relative py-32 bg-black overflow-hidden border-t border-white/5">
-            {/* Background patterns */}
-            <div className="absolute inset-0 bg-grid-subtle opacity-10 pointer-events-none" />
+    const sectionRef = useRef<HTMLElement>(null)
 
-            <div className="container mx-auto px-6 relative z-10">
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"],
+    })
+
+    // Heading floats up
+    const rawHeadingY = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"])
+    const headingY = useSpring(rawHeadingY, { stiffness: 50, damping: 20 })
+
+    // Subtle background shift
+    const rawBgY = useTransform(scrollYProgress, [0, 1], ["3%", "-3%"])
+    const bgY = useSpring(rawBgY, { stiffness: 30, damping: 15 })
+
+    return (
+        <section ref={sectionRef} id="gallery" className="parallax-section py-32 bg-black border-t border-white/5">
+            {/* Parallax ambient glow layer */}
+            <motion.div
+                className="absolute inset-0 pointer-events-none parallax-layer"
+                style={{ y: bgY }}
+            >
+                <div className="absolute inset-0 bg-grid-subtle opacity-10" />
+                <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full blur-[180px]" style={{ background: "rgba(139,1,0,0.05)" }} />
+            </motion.div>
+
+            <div className="w-full px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
+                {/* Parallax heading - Left aligned Form style */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-24"
+                    style={{ y: headingY }}
+                    className="parallax-layer text-left mb-14 md:mb-20"
                 >
-                    <span className="text-yellow-500 font-black tracking-[0.5em] uppercase text-xs mb-4 block">Capturing Moments</span>
-                    <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-8">
-                        <span className="text-yellow-500 italic drop-shadow-[0_5px_15px_rgba(234,179,8,0.3)] font-serif uppercase">On</span> FOCUS
-                    </h2>
-                    <div className="h-px w-32 bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto" />
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-white mb-6">
+                            <span>right at</span> <span style={{ color: "#8b0100" }}>you...</span>
+                        </h2>
+                        <div className="h-1 w-24 rounded-full" style={{ background: "#8b0100" }} />
+                    </motion.div>
                 </motion.div>
 
-                {/* Bento Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] gap-6 max-w-7xl mx-auto grid-flow-dense">
+                {/* Bento Grid - Full Width */}
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[260px] md:auto-rows-[300px] gap-6 grid-flow-dense">
                     {galleryImages.map((image, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{
-                                opacity: 1,
-                                scale: 1,
-                                filter: "grayscale(0%)",
-                            }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: false, margin: "-10% 0% -10% 0%" }}
-                            className={cn(
-                                "group relative overflow-hidden rounded-[2rem] glass border border-white/10",
-                                image.className
-                            )}
-                        >
-                            <div className="relative w-full h-full">
-                                <Image
-                                    src={image.src}
-                                    alt={image.alt}
-                                    fill
-                                    className={cn(
-                                        "object-cover transition-all duration-700 group-hover:scale-110",
-                                        "md:grayscale md:opacity-60 md:group-hover:grayscale-0 md:group-hover:opacity-100",
-                                        "max-md:grayscale-0 max-md:opacity-100" // Always reveal on mobile once in view
-                                    )}
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                />
-                            </div>
-
-                            {/* Overlay on hover */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                            <div className="absolute bottom-6 left-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                                <p className="text-yellow-500 font-black tracking-widest text-[10px] uppercase mb-1">Yellow Scooter</p>
-                                <h4 className="text-white font-bold text-sm tracking-tight capitalize">{image.alt}</h4>
-                            </div>
-                        </motion.div>
+                        <GalleryItem key={idx} image={image} idx={idx} />
                     ))}
                 </div>
             </div>
         </section>
+    )
+}
+
+function GalleryItem({ image, idx }: { image: typeof galleryImages[0]; idx: number }) {
+    const itemRef = useRef<HTMLDivElement>(null)
+
+    const { scrollYProgress } = useScroll({
+        target: itemRef,
+        offset: ["start end", "end start"],
+    })
+
+    // Alternate parallax directions for visual depth: odd items go up, even go slightly down
+    const direction = idx % 3 === 0 ? 0.08 : idx % 3 === 1 ? 0.05 : 0.06
+    const sign = idx % 2 === 0 ? 1 : -1
+    const rawY = useTransform(
+        scrollYProgress,
+        [0, 1],
+        [`${sign * direction * 100}%`, `${-sign * direction * 100}%`]
+    )
+    const y = useSpring(rawY, { stiffness: 55, damping: 22 })
+
+    return (
+        <motion.div
+            ref={itemRef}
+            style={{ y }}
+            className={cn(
+                "group relative overflow-hidden rounded-[2rem] glass border border-white/10 shadow-depth parallax-layer",
+                image.className
+            )}
+        >
+            <motion.div
+                initial={{ opacity: 0, scale: 0.92 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.9, delay: (idx % 5) * 0.06 }}
+                viewport={{ once: false, margin: "-10% 0% -10% 0%" }}
+                className="relative w-full h-full"
+            >
+                <div className="relative w-full h-full">
+                    <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        className="object-cover transition-all duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                </div>
+
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="absolute bottom-6 left-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <h4 className="text-white font-bold text-sm tracking-tight capitalize text-shadow-deep">
+                        {image.alt}
+                    </h4>
+                </div>
+            </motion.div>
+        </motion.div>
     )
 }

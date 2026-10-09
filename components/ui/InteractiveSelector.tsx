@@ -64,7 +64,6 @@ const InteractiveSelector = () => {
     <div className="relative flex flex-col items-center justify-center min-h-[80vh] bg-black font-sans text-white py-12 overflow-hidden">
       {/* Header Section */}
       <div className="w-full max-w-3xl px-6 mt-8 mb-12 text-center relative z-10">
-        <span className="text-yellow-500 font-black tracking-[0.4em] uppercase text-xs mb-4 block">Our Expertise</span>
         <h2 className="text-4xl md:text-7xl font-black text-white mb-6 tracking-tighter">BEYOND THE LENS</h2>
         <p className="text-lg md:text-xl text-white/40 font-medium max-w-xl mx-auto">Explore our high-end production services tailored for ambitious visual storytellers.</p>
       </div>

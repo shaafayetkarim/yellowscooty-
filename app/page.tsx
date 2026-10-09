@@ -6,11 +6,13 @@ import { Timeline } from "@/components/ui/timeline"
 import "./globals.css"
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials"
 import { motion } from "framer-motion"
-import SmoothScrollHero from "@/components/ui/smooth-scroll-hero"
+import ContactSection from "@/components/ui/contact-section"
 import { DemoOne } from "@/components/demo"
 import { LogoCarousel } from "@/components/ui/logo-carousel"
 import { HandsSection } from "@/components/ui/hands-section"
 import { GallerySection } from "@/components/ui/gallery-section"
+import { WhatWeCoverSection } from "@/components/ui/what-we-cover"
+import { GsapMissionSection } from "@/components/ui/gsap-mission-section"
 import Footer from "@/components/footer"
 import Image from "next/image"
 
@@ -26,8 +28,11 @@ export default function Page() {
   useEffect(() => {
     const preloadImages = async () => {
       const imageUrls = [
-        // Hero Background
-        "/heropic.jpg",
+        // Hero Image
+        "/hero main.png",
+        // Logos
+        "/ares1.webp",
+        "/ares2.webp",
         // Founders (lowercase .jpg on disk)
         "https://i.ibb.co.com/PvrwFvBf/Simon-Reza.jpg",
         "https://i.ibb.co.com/kjfXyZT/Mohammad-Samir.jpg",
@@ -66,7 +71,7 @@ export default function Page() {
     const init = async () => {
       // Wait for both minimum time AND critical image loading
       await Promise.all([
-        new Promise(resolve => setTimeout(resolve, 1250)), // Reduced from 2500ms
+        new Promise(resolve => setTimeout(resolve, 6000)),
         preloadImages()
       ])
       setIsLoading(false)
@@ -76,7 +81,7 @@ export default function Page() {
   }, [])
 
   const missionStatement =
-    "At Yellow Scooter Production, we don't just capture images; we capture the essence of movement and the soul of your story. From the cinematic streets of Dhaka to global landscapes, we bring a bold, fresh perspective to every frame. Our vision is rooted in the belief that every moment deserves a director's touch. Whether it's a high-octane commercial or an intimate documentary, we fuel your brand with visual excellence. Join us in redefining the art of visual storytelling, one frame at a time."
+    "At Ares Production, we don't just capture images; we capture the essence of movement and the soul of your story. From the cinematic streets of Dhaka to global landscapes, we bring a bold, fresh perspective to every frame. Our vision is rooted in the belief that every moment deserves a director's touch. Whether it's a high-octane commercial or an intimate documentary, we fuel your brand with visual excellence. Join us in redefining the art of visual storytelling, one frame at a time."
 
   const timelineEntries = [
     {
@@ -85,7 +90,7 @@ export default function Page() {
       alt: "Cinematographer at work",
       title: "Visionary Frames",
       description:
-        "Every project starts with a vision. At Yellow Scooter, we specialize in translating your complex ideas into stunning visual narratives. From pre-production to the final cut, we ensure your story is told with cinematic precision.",
+        "Every project starts with a vision. At Ares Production, we specialize in translating your complex ideas into stunning visual narratives. From pre-production to the final cut, we ensure your story is told with cinematic precision.",
       layout: "left" as const,
     },
     {
@@ -109,10 +114,11 @@ export default function Page() {
   ]
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-yellow-500/30 selection:text-yellow-500">
+    <div className="min-h-screen bg-black text-white" style={{ ["--selection-bg" as string]: "rgba(139,1,0,0.3)", ["--selection-color" as string]: "#8b0100" }}>
+      <style>{`::selection { background: rgba(139,1,0,0.3); color: #ff4040; }`}</style>
       <Navbar />
       <AnimatePresence mode="wait">
-        {isLoading && <LoadingScreen />}
+        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
       <motion.div
@@ -129,17 +135,22 @@ export default function Page() {
         {/* Randomized Gallery Section - Moved after Hero */}
         <GallerySection />
 
+        {/* What We Cover Section */}
+        <WhatWeCoverSection />
+
         {/* Timeline Section */}
         <section id="community" className="relative py-32 bg-black">
           {/* Subtle Grid Pattern */}
           <div className="absolute inset-0 bg-grid-subtle opacity-10 pointer-events-none" />
 
           <div className="relative z-10">
-            <div className="container mx-auto px-6 mb-24">
-              <div className="text-center">
-                <span className="text-yellow-500 font-black tracking-[0.4em] uppercase text-xs mb-4 block">Process & Perfection</span>
-                <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-8 text-white">CRAFTING EXCELLENCE</h2>
-                <p className="text-xl md:text-2xl text-white/40 max-w-3xl mx-auto leading-relaxed">
+            <div className="w-full px-6 sm:px-10 md:px-16 lg:px-24 mb-16 md:mb-20">
+              <div className="text-left">
+                <h2 className="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-white mb-6">
+                  <span>crafting</span> <span style={{ color: "#8b0100" }}>excellence</span>
+                </h2>
+                <div className="h-1 w-24 rounded-full mb-6" style={{ background: "#8b0100" }} />
+                <p className="text-lg md:text-xl text-white/50 max-w-2xl leading-relaxed">
                   From concept to delivery, we follow a rigorous creative process that puts quality and storytelling at the forefront.
                 </p>
               </div>
@@ -151,7 +162,7 @@ export default function Page() {
 
         {/* Testimonials Section */}
         <section id="testimonials" className="relative py-32 bg-black border-t border-white/5">
-          <div className="container mx-auto px-6 relative z-10">
+          <div className="w-full px-6 sm:px-10 md:px-14 lg:px-20 relative z-10">
             {/* Brand Logo Carousel moved here */}
             <div className="mb-32">
               <motion.div
@@ -159,13 +170,12 @@ export default function Page() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
                 viewport={{ once: true }}
-                className="text-center mb-12"
+                className="text-left mb-14 md:mb-20"
               >
-                <span className="text-yellow-500 font-black tracking-[0.5em] uppercase text-[10px] mb-4 block">Industry Partners</span>
-                <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-white">
-                  TRUSTED BY <span className="text-yellow-500 italic">GIANTS</span>
-                </h3>
-                <div className="h-px w-20 bg-gradient-to-r from-transparent via-yellow-500/50 to-transparent mx-auto mt-4" />
+                <h2 className="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-white mb-6">
+                  <span>trusted by</span> <span style={{ color: "#8b0100" }}>giants</span>
+                </h2>
+                <div className="h-1 w-24 rounded-full" style={{ background: "#8b0100" }} />
               </motion.div>
               <LogoCarousel />
             </div>
@@ -175,15 +185,14 @@ export default function Page() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true }}
-              className="text-center mb-20"
+              className="text-right mb-16 md:mb-20"
             >
-              <span className="text-yellow-500 font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">Director's Vouchers</span>
-              <h2 className="text-4xl md:text-8xl font-black tracking-tighter text-white mb-8">
-                IT'S ALWAYS <br />
-                <span className="text-yellow-500 italic drop-shadow-[0_5px_15px_rgba(234,179,8,0.2)] uppercase">Clients Say</span>
+              <h2 className="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tight text-white mb-6">
+                <span>it&apos;s always</span> <span style={{ color: "#8b0100" }}>clients say</span>
               </h2>
-              <p className="text-xl md:text-2xl text-white/40 max-w-3xl mx-auto leading-relaxed">
-                Trusted by the architects of modern cinema and the rebels of visual storytelling.
+              <div className="h-1 w-24 rounded-full mb-6 ml-auto" style={{ background: "#8b0100" }} />
+              <p className="text-lg md:text-xl text-white/50 max-w-2xl ml-auto leading-relaxed">
+                Trusted by leading brand visionaries to tell their most ambitious stories.
               </p>
             </motion.div>
 
@@ -194,91 +203,11 @@ export default function Page() {
         {/* Hands Behind The Scene Section */}
         <HandsSection />
 
-        {/* Mission Statement Section - Moved and Redesigned */}
-        <section id="mission" className="relative min-h-screen flex items-center justify-center py-40 bg-black overflow-hidden border-t border-white/5">
-          {/* Advanced Background Layering */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=2000&q=80"
-              alt="Cinematic Background"
-              fill
-              className="object-cover opacity-[0.07] scale-110 blur-sm"
-            />
-          </div>
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none z-1" />
-          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-yellow-500/10 to-transparent opacity-30 z-1" />
+        {/* Page-Wide GSAP Animated Mission Section */}
+        <GsapMissionSection />
 
-          {/* Dynamic Glows */}
-          <motion.div
-            animate={{ opacity: [0.1, 0.2, 0.1], scale: [1, 1.2, 1] }}
-            transition={{ duration: 8, repeat: Infinity }}
-            className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-yellow-500/10 blur-[180px] rounded-full"
-          />
-          <motion.div
-            animate={{ opacity: [0.1, 0.15, 0.1], scale: [1, 1.1, 1] }}
-            transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-            className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-yellow-500/5 blur-[150px] rounded-full"
-          />
-
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="max-w-6xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                viewport={{ once: true }}
-                className="mb-16 relative"
-              >
-                <span className="text-yellow-500 font-black tracking-[0.6em] uppercase text-[10px] mb-6 block">Our Manifesto</span>
-                <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-4 text-white relative">
-                  THE MISSION
-                  <motion.span
-                    animate={{ opacity: [0, 0.5, 0], x: [-10, 10, -10] }}
-                    transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 5 }}
-                    className="absolute inset-0 text-yellow-500/30 blur-sm -z-10"
-                  >
-                    THE MISSION
-                  </motion.span>
-                </h2>
-                <div className="h-px w-32 bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto mt-8" />
-              </motion.div>
-
-              <div className="relative max-w-4xl mx-auto">
-                {/* Card Container */}
-                <div className="glass-dark border border-white/10 rounded-[2rem] p-8 md:p-16 relative overflow-hidden shadow-2xl backdrop-blur-md">
-                  {/* Decorative Elements */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500/50 to-transparent opacity-50" />
-                  <div className="absolute -left-10 -top-10 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl pointer-events-none" />
-                  <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-yellow-500/5 rounded-full blur-3xl pointer-events-none" />
-
-                  {/* Stylish Serif Font with Gradient Scroll */}
-                  <TextGradientScroll
-                    text={missionStatement}
-                    className="text-xl md:text-3xl lg:text-4xl font-serif italic leading-relaxed tracking-wide text-white/90 drop-shadow-lg text-center"
-                    type="word"
-                    textOpacity="soft"
-                  />
-                </div>
-
-                {/* Decorative side accent - adjusted position */}
-                <div className="absolute -left-4 top-10 bottom-10 w-px bg-gradient-to-b from-transparent via-yellow-500/20 to-transparent hidden xl:block" />
-                <div className="absolute -right-4 top-10 bottom-10 w-px bg-gradient-to-b from-transparent via-yellow-500/20 to-transparent hidden xl:block" />
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        {/* Smooth Scroll Hero with CTA Overlay */}
-        <section id="join" className="relative">
-          <SmoothScrollHero
-            scrollHeight={2500}
-            desktopImage="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=2000&q=100"
-            mobileImage="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1200&q=100"
-            initialClipPercentage={20}
-            finalClipPercentage={80}
-          />
-        </section>
+        {/* Simple & Clean Contact Form Section */}
+        <ContactSection />
 
         <Footer />
       </motion.div>

@@ -17,6 +17,21 @@ const config: Config = {
         signature: ["var(--font-signature)"],
       },
       colors: {
+        ares: {
+          DEFAULT: '#8b0100',
+          light: '#b01a19',
+          dark: '#5c0100',
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
+          500: '#8b0100',
+          600: '#7a0100',
+          700: '#5c0100',
+          800: '#3d0100',
+          900: '#1f0000',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

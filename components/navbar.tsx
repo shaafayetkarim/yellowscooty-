@@ -1,124 +1,158 @@
 "use client"
 
-import { Menu, X, Instagram, Twitter, Facebook } from "lucide-react"
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useRef } from "react"
+import Image from "next/image"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export const Navbar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [scrolled, setScrolled] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
+  const navBgRef = useRef<HTMLDivElement>(null)
+  const logoWrapperRef = useRef<HTMLDivElement>(null)
+  const logoImgRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50)
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      let scrollTween: gsap.core.Timeline | null = null
+
+      const initAnimation = () => {
+        if (scrollTween) {
+          scrollTween.kill()
+          scrollTween = null
         }
-        window.addEventListener("scroll", handleScroll)
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
 
-    const navItems = [
-        { name: "Home", href: "#hero" },
-        { name: "On Focus", href: "#gallery" },
-        { name: "Visionaries", href: "#hands" },
-        { name: "Process", href: "#community" },
-        { name: "Clients", href: "#testimonials" },
-        { name: "Mission", href: "#mission" },
-    ]
+        const anchor = document.getElementById("hero-logo-anchor")
+        const nav = navRef.current
+        const logoWrapper = logoWrapperRef.current
+        const navBg = navBgRef.current
 
-    const scrollToSection = (href: string) => {
-        const element = document.querySelector(href)
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" })
-        }
-        setIsMenuOpen(false)
-    }
+        if (!anchor || !nav || !logoWrapper || !navBg) return
 
-    return (
-        <>
-            <nav
-                className={`fixed top-0 left-0 right-0 z-[60] flex items-center justify-between h-20 px-6 md:px-12 transition-all duration-500 ${scrolled ? "glass-dark h-16" : "bg-transparent"
-                    }`}
-            >
-                <div className="flex items-center gap-3">
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="relative w-12 h-12 flex items-center justify-center glass-yellow rounded-xl overflow-hidden cursor-pointer"
-                    >
-                        <div className="absolute inset-0 bg-yellow-500/10" />
-                        <img
-                            src="/images/logo.png"
-                            alt="Logo"
-                            className="w-10 h-10 object-contain z-10"
-                            onError={(e) => {
-                                e.currentTarget.src = "https://cdn-icons-png.flaticon.com/512/3233/3233827.png" // Fallback icon
-                            }}
-                        />
-                    </motion.div>
-                    <div className="flex flex-col">
-                        <span className="font-sans font-[1000] text-xl tracking-tighter text-yellow-500 leading-none">YELLOW SCOOTER</span>
-                        <span className="font-sans font-extrabold text-[10px] tracking-[0.2em] text-white/90 leading-none mt-1.5 uppercase">Production</span>
-                    </div>
-                </div>
+        const anchorRect = anchor.getBoundingClientRect()
+        const navRect = nav.getBoundingClientRect()
+        const currentScroll = window.scrollY
 
-                {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-10">
-                    {navItems.slice(0, 3).map((item, idx) => (
-                        <motion.button
-                            key={item.name}
-                            onClick={() => scrollToSection(item.href)}
-                            className="text-white hover:text-yellow-500 transition-all duration-300 text-sm font-sans font-[1000] tracking-tight uppercase relative group"
-                        >
-                            {item.name}
-                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full" />
-                        </motion.button>
-                    ))}
-                </div>
+        // Center of the hero anchor relative to the document
+        const anchorCenterDocY = anchorRect.top + currentScroll + anchorRect.height / 2
+        // Center of the fixed navbar relative to viewport top
+        const navCenterY = navRect.height / 2
 
-                <div className="hidden md:flex items-center gap-4">
-                    <button
-                        onClick={() => scrollToSection("#join")}
-                        className="px-6 py-2.5 glass-yellow rounded-full text-[11px] font-sans font-[1000] tracking-tight text-white hover:bg-yellow-500 transition-all duration-500 uppercase"
-                    >
-                        Let's Talk
-                    </button>
-                </div>
+        const deltaY = anchorCenterDocY - navCenterY
 
-                {/* Mobile Menu Button */}
-                <button
-                    className="md:hidden glass-yellow p-2 rounded-lg text-white"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                    {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-            </nav>
+        // Target size in navbar: ~120px desktop, ~95px mobile
+        const isMobile = window.innerWidth < 768
+        const targetWidth = isMobile ? 95 : 125
+        const currentAnchorWidth = anchorRect.width || (isMobile ? 320 : 580)
+        const targetScale = Math.min(0.28, Math.max(0.16, targetWidth / currentAnchorWidth))
 
-            {/* Mobile Menu Overlay */}
-            {isMenuOpen && (
-                <div
-                    className="fixed inset-0 z-[55] glass-dark flex flex-col items-center justify-center gap-10 p-6 md:hidden"
-                >
-                    <button
-                        className="absolute top-6 right-6 p-2 text-white/50"
-                        onClick={() => setIsMenuOpen(false)}
-                    >
-                        <X size={32} />
-                    </button>
-                    {navItems.map((item) => (
-                        <button
-                            key={item.name}
-                            onClick={() => scrollToSection(item.href)}
-                            className="text-5xl font-serif italic font-bold text-white hover:text-yellow-500 transition-colors tracking-tight"
-                        >
-                            {item.name}
-                        </button>
-                    ))}
-                    <div className="mt-12 flex gap-8">
-                        <Instagram size={32} className="text-white/50 hover:text-yellow-500" />
-                        <Twitter size={32} className="text-white/50 hover:text-yellow-500" />
-                        <Facebook size={32} className="text-white/50 hover:text-yellow-500" />
-                    </div>
-                </div>
-            )}
-        </>
-    )
+        // Set initial positions
+        gsap.set(logoWrapper, {
+          y: deltaY,
+          scale: 1,
+          transformOrigin: "center center",
+          force3D: true,
+        })
+        gsap.set(navBg, { opacity: 0 })
+
+        // Scrubbed GSAP timeline linking hero scroll to logo movement
+        scrollTween = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#hero",
+            start: "top top",
+            end: "85% top",
+            scrub: 0.8,
+            invalidateOnRefresh: true,
+          },
+        })
+
+        // Logo slowly glides to navbar and scales down
+        scrollTween.to(
+          logoWrapper,
+          {
+            y: 0,
+            scale: targetScale,
+            ease: "power1.inOut",
+          },
+          0
+        )
+
+        // Glassmorphic background fades in smoothly as logo docks
+        scrollTween.to(
+          navBg,
+          {
+            opacity: 1,
+            ease: "power2.inOut",
+          },
+          0.15
+        )
+      }
+
+      // Initial setup
+      initAnimation()
+
+      // Refresh once images and fonts are loaded
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh()
+        initAnimation()
+      }, 1400)
+
+      const handleResize = () => {
+        initAnimation()
+      }
+
+      window.addEventListener("resize", handleResize)
+
+      return () => {
+        clearTimeout(timer)
+        window.removeEventListener("resize", handleResize)
+        if (scrollTween) scrollTween.kill()
+      }
+    }, navRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <nav
+      ref={navRef}
+      className="fixed top-0 left-0 right-0 z-[60] h-16 md:h-20 flex items-center justify-center pointer-events-none"
+    >
+      {/* Glassmorphic Navbar Background - fades in smoothly as logo reaches navbar */}
+      <div
+        ref={navBgRef}
+        className="absolute inset-0 w-full h-full backdrop-blur-xl bg-black/50 border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+      />
+
+      {/* Centered White Ares Logo - smoothly glides from hero center to navbar */}
+      <div
+        ref={logoWrapperRef}
+        onClick={scrollToTop}
+        className="relative z-10 pointer-events-auto cursor-pointer select-none"
+        style={{
+          transformOrigin: "center center",
+          willChange: "transform",
+        }}
+        title="Ares Production - Scroll to top"
+      >
+        <div
+          ref={logoImgRef}
+          className="relative w-[300px] sm:w-[440px] md:w-[580px] lg:w-[680px] max-w-[88vw] aspect-[577/433] flex items-center justify-center"
+        >
+          <Image
+            src="/hero main.png"
+            alt="Ares"
+            fill
+            priority
+            className="object-contain filter drop-shadow-[0_0_35px_rgba(255,255,255,0.25)]"
+          />
+        </div>
+      </div>
+    </nav>
+  )
 }

@@ -1,19 +1,26 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Playfair_Display, Caveat } from 'next/font/google'
+import { Outfit, Playfair_Display, Caveat, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SmoothScroll } from '@/components/smooth-scroll'
 import './globals.css'
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
-const caveat = Caveat({ subsets: ["latin"], variable: "--font-signature" });
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+})
+
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" })
+const caveat = Caveat({ subsets: ["latin"], variable: "--font-signature" })
 
 export const metadata: Metadata = {
-  title: 'Yellow Scooter Production',
+  title: 'Ares Production',
   description: 'A premium production house capturing the essence of movement and storytelling.',
   generator: 'Next.js',
   icons: {
-    icon: '/images/logo.png',
+    icon: '/ares2.webp',
   },
 }
 
@@ -23,8 +30,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} ${caveat.variable} font-sans antialiased`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${outfit.variable} ${geistMono.variable} ${playfair.variable} ${caveat.variable} font-sans antialiased selection:bg-[#8b0100]/30 selection:text-white`}>
+        <SmoothScroll />
         {children}
         <Analytics />
       </body>

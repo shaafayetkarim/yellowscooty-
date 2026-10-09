@@ -1,59 +1,113 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react"
+import gsap from "gsap"
 
 export const LoadingScreen = ({ onComplete }: { onComplete?: () => void }) => {
-    const [progress, setProgress] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const line1Ref = useRef<HTMLDivElement>(null)
+  const line2Ref = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 100) {
-                    clearInterval(timer)
-                    return 100
-                }
-                return prev + 2
-            })
-        }, 40)
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          if (onComplete) onComplete()
+        },
+      })
 
-        return () => clearInterval(timer)
-    }, [])
+      // Set initial states
+      gsap.set([line1Ref.current, line2Ref.current], {
+        opacity: 0,
+        scale: 0.9,
+        filter: "blur(20px)",
+      })
 
-    return (
-        <motion.div
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 1.5, ease: "easeInOut" } }}
-            onAnimationComplete={onComplete}
+      // --- SEQUENCE ---
+
+      // 1. Line 1 Slowly Appears ("need 📸 ?")
+      tl.to(line1Ref.current, {
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 1.3,
+        ease: "power2.out",
+      })
+        .to({}, { duration: 0.6 }) // Calm hold
+
+        // 2. Line 1 Slowly Disappears (Gone)
+        .to(line1Ref.current, {
+          opacity: 0,
+          scale: 1.06,
+          filter: "blur(20px)",
+          duration: 0.9,
+          ease: "power2.in",
+        })
+        .to({}, { duration: 0.3 }) // Brief transition pause
+
+        // 3. Line 2 Slowly Appears ("gotchu 😉")
+        .to(line2Ref.current, {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.3,
+          ease: "power2.out",
+        })
+        .to({}, { duration: 0.7 }) // Calm hold
+
+        // 4. Line 2 Slowly Disappears
+        .to(line2Ref.current, {
+          opacity: 0,
+          scale: 1.06,
+          filter: "blur(20px)",
+          duration: 0.9,
+          ease: "power2.in",
+        })
+
+        // 5. Calm Loader Screen Fade Out
+        .to(
+          containerRef.current,
+          {
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.inOut",
+          },
+          "-=0.4"
+        )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [onComplete])
+
+  return (
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black text-white select-none overflow-hidden"
+    >
+      <div className="relative flex items-center justify-center text-center px-4 w-full min-h-[220px]">
+        {/* Line 1: need 📸 ? */}
+        <div
+          ref={line1Ref}
+          className="absolute font-sans font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tighter lowercase text-white inline-flex items-center justify-center gap-1.5 sm:gap-3 whitespace-nowrap leading-none"
         >
-            <div className="relative">
-                {/* LOGO TEXT */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-4xl md:text-7xl font-black tracking-tighter text-white mb-2"
-                >
-                    YELLOW SCOOTER <span className="text-yellow-500 italic block text-3xl md:text-6xl mt-2">PRODUCTION</span>
-                </motion.h1>
+          <span>need</span>
+          <span className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl inline-flex items-center self-center translate-y-[-2px]">
+            📸
+          </span>
+          <span>?</span>
+        </div>
 
-                {/* LOADING BAR */}
-                <div className="w-full h-1 bg-white/10 rounded-full mt-4 overflow-hidden relative">
-                    <motion.div
-                        className="absolute top-0 left-0 h-full bg-yellow-500"
-                        style={{ width: `${progress}%` }}
-                    />
-                </div>
-
-                <motion.p
-                    className="text-yellow-500/50 text-[10px] font-black tracking-[0.5em] uppercase text-center mt-4"
-                    animate={{ opacity: [0.3, 1, 0.3] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                >
-                    Loading Experience
-                </motion.p>
-            </div>
-        </motion.div>
-    )
+        {/* Line 2: gotchu 😉 */}
+        <div
+          ref={line2Ref}
+          className="absolute font-sans font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tighter lowercase text-white inline-flex items-center justify-center gap-1.5 sm:gap-3 whitespace-nowrap leading-none"
+        >
+          <span>gotchu</span>
+          <span className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl inline-flex items-center self-center translate-y-[-2px]">
+            😉
+          </span>
+        </div>
+      </div>
+    </div>
+  )
 }

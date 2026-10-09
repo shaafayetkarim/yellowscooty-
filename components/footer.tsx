@@ -1,136 +1,126 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { Instagram, Mail, MapPin } from "lucide-react"
+import Image from "next/image"
+import { ArrowUp } from "lucide-react"
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const navLinks = [
+    { name: "Home", href: "#hero" },
+    { name: "On Focus", href: "#gallery" },
+    { name: "What We Cover", href: "#coverage" },
+    { name: "Process", href: "#community" },
+    { name: "Clients", href: "#testimonials" },
+    { name: "The Mission", href: "#mission" },
+    { name: "Inquiries", href: "#join" },
+  ]
+
+  const socialLinks = [
+    { name: "Facebook", href: "https://facebook.com" },
+    { name: "Instagram", href: "https://instagram.com" },
+  ]
 
   return (
-    <footer id="footer" className="relative bg-black border-t border-white/5 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-subtle opacity-10 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-yellow-500/50 to-transparent" />
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-yellow-500/5 blur-[120px] rounded-full" />
-
-      <div className="container mx-auto px-6 pt-32 pb-16 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-32 items-center">
-          {/* Left Side: Brand & Vision */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-6 mb-12">
-              <img src="/images/logo.png" alt="Yellow Scooter" className="w-16 h-16" />
-              <div>
-                <h3 className="text-2xl md:text-3xl font-black tracking-tighter text-white leading-none">
-                  YELLOW <span className="text-yellow-500">SCOOTER</span> <br />
-                  <span className="text-lg md:text-xl text-white/80">PRODUCTION</span>
-                </h3>
-                <span className="text-white/20 text-[10px] font-black tracking-[0.5em] uppercase mt-2 block">Premium Production 2024</span>
-              </div>
-            </div>
-            <p className="text-2xl text-white/40 leading-relaxed font-serif italic max-w-xl">
-              "We turn light and shadow into visual legacies. Your vision, directed with cinematic excellence."
-            </p>
-          </motion.div>
-
-          {/* Right Side: Information & Instagram */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-12"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div>
-                <h4 className="text-sm font-black text-yellow-500 mb-8 tracking-[0.4em] uppercase">HQ Dhaka</h4>
-                <div className="space-y-6 text-white/60">
-                  <div className="flex items-start space-x-4">
-                    <MapPin size={20} className="text-yellow-500 mt-1 flex-shrink-0" />
-                    <span className="font-bold text-xs tracking-widest uppercase leading-loose">
-                      Yellow Scooter Production House,<br />
-                      Dhaka, Bangladesh
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <Mail size={20} className="text-yellow-500 flex-shrink-0" />
-                    <a href="mailto:yellowscooterproduction@gmail.com" className="hover:text-yellow-500 transition-colors duration-300 font-black text-xs tracking-[0.1em]">
-                      YELLOWSCOOTERPRODUCTION@GMAIL.COM
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-sm font-black text-yellow-500 mb-8 tracking-[0.4em] uppercase">Follow The Vision</h4>
-                <a
-                  href="https://www.instagram.com/one_44p/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-4 px-8 py-5 glass border border-white/10 rounded-2xl text-white group hover:glass-yellow transition-all duration-500"
-                >
-                  <Instagram className="group-hover:scale-110 transition-transform" />
-                  <span className="font-black tracking-[0.3em] uppercase text-xs">Instagram</span>
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-          <p className="text-[10px] font-black tracking-[0.3em] uppercase text-white/20">
-            © 2024 YELLOW SCOOTER PRODUCTION. ALL RIGHTS RESERVED.
-          </p>
-          <div className="flex gap-12">
-            {['Privacy', 'Legal', 'Terms'].map((item) => (
-              <a key={item} href="#" className="text-[10px] font-black tracking-[0.3em] uppercase text-white/20 hover:text-yellow-500 transition-colors">
-                {item}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Developer Signature */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="flex flex-col items-center gap-2 pb-8"
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-white font-signature tracking-normal">
-              By
-            </span>
-            <motion.a
-              href="https://github.com/shaafayetkarim"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative"
-            >
-              <span className="text-2xl font-bold text-white transition-all duration-500 group-hover:text-yellow-500 font-signature tracking-normal">
-                Shafayet Karim
-              </span>
-              <motion.div
-                className="absolute -inset-x-4 -inset-y-2 bg-yellow-500/5 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0, 0.5, 0]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+    <footer id="footer" className="relative w-full bg-white text-zinc-900 border-t border-zinc-200 font-outfit select-none">
+      {/* Content Section */}
+      <div className="w-full px-6 sm:px-10 md:px-14 lg:px-20 pt-16 md:pt-24 pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Brand & Manifesto Column */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Massive Red Logo Image */}
+            <div className="relative w-full max-w-[850px] h-36 sm:h-52 md:h-64 lg:h-72 -ml-2">
+              <Image
+                src="/redfg.png"
+                alt="Ares Production"
+                fill
+                priority
+                className="object-contain object-[left_top]"
               />
-              {/* Subtle underline animation */}
-              <div className="absolute -bottom-1 left-0 w-0 h-px bg-yellow-500 transition-all duration-500 group-hover:w-full" />
-            </motion.a>
+            </div>
+
+            <p className="text-zinc-500 text-sm sm:text-base leading-relaxed max-w-sm font-normal">
+              Capturing the raw essence of movement and cinematic narrative. Directed for global screens and ambitious storytellers.
+            </p>
+
+            <div className="pt-2 flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-zinc-400">
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#8b0100] animate-pulse" />
+                Available Worldwide
+              </span>
+              <span>·</span>
+              <span>Dhaka HQ</span>
+            </div>
           </div>
-        </motion.div>
+
+          {/* Navigation Column */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-xs uppercase font-extrabold tracking-[0.25em] text-zinc-400">
+              Navigation
+            </h4>
+            <ul className="space-y-2.5">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-sm font-semibold text-zinc-600 hover:text-[#8b0100] transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Socials & Contact Column */}
+          <div className="lg:col-span-4 space-y-6">
+            <div>
+              <h4 className="text-xs uppercase font-extrabold tracking-[0.25em] text-zinc-400 mb-4">
+                Follow The Vision
+              </h4>
+              <div className="flex flex-wrap gap-3">
+                {socialLinks.map((soc) => (
+                  <a
+                    key={soc.name}
+                    href={soc.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 border border-zinc-200 text-xs font-bold uppercase tracking-wider text-zinc-700 hover:border-[#8b0100] hover:bg-[#8b0100] hover:text-white transition-all duration-300"
+                  >
+                    {soc.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-zinc-100 space-y-2">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-400 block">
+                Direct Inquiries
+              </span>
+              <a
+                href="mailto:aresproduction@gmail.com"
+                className="text-sm sm:text-base font-bold text-zinc-900 hover:text-[#8b0100] transition-colors block"
+              >
+                aresproduction@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar: Copyright & Back to Top */}
+        <div className="mt-16 pt-8 border-t border-zinc-200/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold text-zinc-500">
+          <p>© {new Date().getFullYear()} ARES PRODUCTION. ALL RIGHTS RESERVED.</p>
+
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-zinc-700 hover:text-[#8b0100] transition-colors uppercase font-bold tracking-wider cursor-pointer"
+          >
+            <span>Back To Top</span>
+            <ArrowUp size={14} />
+          </button>
+        </div>
       </div>
     </footer>
   )
