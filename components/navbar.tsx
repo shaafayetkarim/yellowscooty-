@@ -145,7 +145,7 @@ export const Navbar = () => {
           className="relative w-[300px] sm:w-[440px] md:w-[580px] lg:w-[680px] max-w-[88vw] aspect-[577/433] flex items-center justify-center"
         >
           <Image
-            src="/hero main.png"
+            src="/logo1.png"
             alt="Ares"
             fill
             priority

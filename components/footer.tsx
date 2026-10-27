@@ -33,7 +33,7 @@ export default function Footer() {
             {/* Massive Red Logo Image */}
             <div className="relative w-full max-w-[850px] h-36 sm:h-52 md:h-64 lg:h-72 -ml-2">
               <Image
-                src="/redfg.png"
+                src="/logo2.png"
                 alt="Ares Production"
                 fill
                 priority

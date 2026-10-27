@@ -29,7 +29,7 @@ export default function Page() {
     const preloadImages = async () => {
       const imageUrls = [
         // Hero Image
-        "/hero main.png",
+        "/logo1.png",
         // Logos
         "/ares1.webp",
         "/ares2.webp",
